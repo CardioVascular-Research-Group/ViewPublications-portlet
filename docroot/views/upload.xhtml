@@ -1,0 +1,105 @@
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+
+	
+				 <h:form id="uploader" enctype="multipart/form-data">
+	
+	<h:outputText value="You may upload files you would like to associate with the publication selected."/><br/>
+	<h:outputText value="If you do not wish to upload any new files, proceed to the next step."/>
+	<br/><br/>
+			   					
+	<h:outputText style="font-weight: bold" value="#{viewPublications.selectedpub.title}"  id="selectedpubconfirmtt3"/>. <br/>
+	<h:outputText value="#{viewPublications.selectedpub.fullnames}"  id="selectedpubconfirmff3"/>. 
+	<h:outputText value="#{viewPublications.selectedpub.journalname}"  id="selectedpubconfirmjn3"/>.<h:outputText value="&#160;" />
+	<h:outputText value="#{viewPublications.selectedpub.journalyear}"  id="selectedpubconfirmjy3"/><h:outputText value="&#160;" />
+	<h:outputText value="#{viewPublications.selectedpub.journalmonth}"  id="selectedpubconfirmjm3"/><h:outputText value="&#160;" />
+	<h:outputText value="#{viewPublications.selectedpub.journalday}"  id="selectedpubconfirmjd3"/>;<h:outputText value="&#160;" />
+   <h:outputText value="#{viewPublications.selectedpub.epubsum2}"  id="epubsum11"/><h:outputText value="&#160;" />
+	<h:outputText value="#{viewPublications.selectedpub.doi}"  id="selectedpubdoi"/><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+	 <h:outputText value="#{viewPublications.selectedpub.epubsum}"  id="epubsum"/><h:outputText value="&#160;" />
+ <br/><br/>
+	<h:outputText style="font-weight: bold" value="Abstract:  "/> 
+	<h:outputText value="#{viewPublications.selectedpub.abstract}" id="selectedpubconfirma"/> <br/>  
+				
+	<br/>PMID: <h:outputText value="#{viewPublications.selectedpub.pmid}"  id="pmid1"/><br/>
+	
+	   
+	        
+	        <p:dataTable id="ft" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.selectedpub.pubfiles}" type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+  <f:facet name="header">Currently Stored Files</f:facet>
+                 <p:column headerText="Filename" > 
+				 #{sfiles.filename}
+				  </p:column>  
+				   <p:column headerText="File Size">
+				 #{sfiles.filesize} KB
+				  
+				  </p:column>
+				  
+				  <p:column headerText="Figure and Panel">
+						
+						<h:outputText value="#{sfiles.figpandisplay}"/>
+					   
+					 
+				  </p:column>
+				  
+				  <p:column headerText="Description">
+				  #{sfiles.description}
+				  
+				  </p:column>
+				  
+ <p:column headerText="Download" >
+ <p:commandButton  id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
+  
+ </p:column>
+ 
+ 
+ 
+ 
+</p:dataTable >
+	<br/><br/><br/>
+	
+	
+	
+	<p:dataTable id="newf" var="nfiles" rowKey="#{nfiles.index}" value="#{viewPublications.fchooser.newrefinedfiles}" emptyMessage="No new records uploaded." type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+    <f:facet name="header">New Files</f:facet>
+                 <p:column headerText="File Name" > 
+				 #{nfiles.filename}
+				  </p:column>  
+				     <p:column headerText="File Size" > 
+				 #{nfiles.filesize} KB
+				  </p:column>  
+	</p:dataTable>
+	
+	
+	
+				<br/><h:outputText style="font-weight: bold" value="Please select electrophysiology files from your computer to attach to this record."/>
+   			<br/><br/>
+   			
+   			
+   			 <p:fileUpload fileUploadListener="#{viewPublications.fchooser.handleFileUpload}" mode="advanced" style="width:100%" dragDropSupport="true" update="messages,:uploader:newf" multiple="true" fileLimit="5" sizeLimit="1000000000" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar)$/" />  
+            <br/><br/><br/>
+            
+            
+   			 <p:growl id="messages" life="10000" showDetail="true" sticky="true"/>  
+   			 
+   <h:outputText value="&#160;" /><h:outputText value="&#160;" /><h:outputText value="&#160;" />
+   	<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>		
+<br/>
+<p:commandButton value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update="messages2"/>
+  <p:commandButton value="Next" action="#{viewPublications.moveStep(3)}" update="@form" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+  
+					
+				
+		
+	</h:form> 
+	
+
+
+</f:view>

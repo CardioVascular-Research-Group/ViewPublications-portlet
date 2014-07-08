@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<f:view
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+	 <h:head />
+	<h:body>
+	
+	<h:panelGroup rendered="#{viewPublications.step == 0}">
+   <ui:include src="/views/nrf.xhtml" />
+</h:panelGroup>
+	
+	<h:panelGroup rendered="#{viewPublications.step == 1 || viewPublications.step == 1}">
+   <ui:include src="/views/main.xhtml" />
+</h:panelGroup>
+
+<h:panelGroup rendered="#{viewPublications.step == 2}">
+   <ui:include src="/views/upload.xhtml" />
+</h:panelGroup>
+<h:panelGroup rendered="#{viewPublications.step == 3}">
+   <ui:include src="/views/description.xhtml" />
+</h:panelGroup>
+	<h:panelGroup rendered="#{viewPublications.step == 4}">
+   <ui:include src="/views/final.xhtml" />
+</h:panelGroup>
+
+
+
+	
+	</h:body>
+	
+	</f:view>
