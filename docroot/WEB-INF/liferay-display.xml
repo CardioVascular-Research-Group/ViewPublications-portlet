@@ -3,6 +3,6 @@
 
 <display>
 	<category name="category.sample">
-		<portlet id="upload" />
+		<portlet id="ViewPublications" />
 	</category>
 </display>
