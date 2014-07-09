@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 public class Publication implements Serializable{
 	
 	  
-
+	private static final long serialVersionUID = 5L;
 	    private static Logger logger2 = Logger.getLogger(Publication.class.getName());  
         
         private List<String> fauthors;

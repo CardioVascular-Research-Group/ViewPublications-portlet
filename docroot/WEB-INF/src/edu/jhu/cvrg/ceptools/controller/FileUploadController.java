@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
@@ -32,14 +32,10 @@ import edu.jhu.cvrg.ceptools.model.FileStorer;
 
 public class FileUploadController implements Serializable{
 
-    /**
-	 * 
-	 */
-	
 	private UploadedFile file;
     private ArrayList<UploadedFile> newfiles;
-    private UploadedFile tempfile;
-    
+
+	private static final long serialVersionUID = 2L;
     
     private int pmid;
     private static Logger logger = Logger.getLogger(ViewPublications.class.getName());
@@ -52,11 +48,8 @@ public class FileUploadController implements Serializable{
     	pmid = 0;
     	newrefinedfiles = new ArrayList<FileStorer> ();
     	filesondrive = new ArrayList<FileStorer> ();
-    	
-    	
+
     }
-    
-    
     
     public void setFilesondrive(ArrayList<FileStorer> f)
     {
@@ -116,9 +109,7 @@ public class FileUploadController implements Serializable{
     {
     	
     	boolean filecheck = false;
-    	
-    	
-    	
+
     	for(FileStorer currfile: filesondrive)
     	{
     		if(currfile.getFilename().equals(file.getFileName()))
@@ -126,8 +117,7 @@ public class FileUploadController implements Serializable{
     			filecheck = true;
     		}
     	}
-    	
-    	
+        	
     	for (FileStorer currufile :newrefinedfiles)
     	{
     		if(currufile.getFilename().equals(file.getFileName()))
@@ -136,15 +126,14 @@ public class FileUploadController implements Serializable{
     		}
     	}
     	
-    	
     	if(filecheck == true)
     	{
     
- 		return false;
+    		return false;
     	}
     	else
     	{
-       return true; 		
+    		return true; 		
     	}
     }
     
@@ -153,16 +142,8 @@ public class FileUploadController implements Serializable{
 		
 	
     	String currlocation = PropsUtil.get("data_store2") + this.pmid + "/";
-    	String zipfilelocation = currlocation+ this.pmid+".zip";
-    	File foldertozip = new File(currlocation);
-    	 
-    	
-    	
     	File folder = new File(currlocation);
-    	
-    	
-    
-    	
+
     	for(File currfile: folder.listFiles())
     	{
     		
@@ -184,17 +165,10 @@ public class FileUploadController implements Serializable{
     	
     	String currpmid  = String.valueOf(pmid);
     	String currlocation = PropsUtil.get("data_store2")+ currpmid+"/";
-    
-    	logger.info("the location is coming as:" + currlocation);
-    	ArrayList<org.primefaces.model.UploadedFile> thefiles = new ArrayList<org.primefaces.model.UploadedFile>();
+
+    	
     	FileStorer currfstore = new FileStorer();
-    	
-    	
-    	
-    	boolean result;
-    	
-    	
-    	 File thedir = new File(currlocation);
+    	File thedir = new File(currlocation);
     	
     	 
     	if(!thedir.exists())
@@ -203,52 +177,34 @@ public class FileUploadController implements Serializable{
     	 thedir.mkdirs();
    
     	}
-    	else
-    	{
-    		
-    		
-    	}
-    	
+
     	//Now add files to it
     	 try
     	   {
-    	thefiles = this.getNewfiles();
-    	 
-    	for(org.primefaces.model.UploadedFile currfile: newfiles)
-    	  { 
-    		currfstore = new FileStorer();
     		
-    		currfstore.setFilename(currfile.getFileName());
-    		currfstore.setFilesize(currfile.getSize());
-	    		currfstore.setFilelocation(currlocation);
-	    		currfstore.setFiletype(FilenameUtils.getExtension(currfile.getFileName()));
+    	 
+    		 for(org.primefaces.model.UploadedFile currfile: newfiles)
+    		 { 
+	    		currfstore = new FileStorer();
 	    		
-	    		
-    		
-    		
-    		
-    		
-    	   String fullfilelocation = currlocation + currfile.getFileName();
-    	   File myfile = new File(fullfilelocation);
-    	  
-    	
-    	
-    	   newrefinedfiles.add(currfstore);
-    	   
-    	     OutputStream out = new FileOutputStream(myfile);
-    	
-      	 InputStream in = currfile.getInputstream();
-    	 
-    	 
-   	  
-	   
-	    org.apache.commons.io.IOUtils.copy(in, out);
-	    
-    	 
-    	  out.close();
-    	}
-    	
-     
+	    		currfstore.setFilename(currfile.getFileName());
+	    		currfstore.setFilesize(currfile.getSize());
+		    	currfstore.setFilelocation(currlocation);
+		    	currfstore.setFiletype(FilenameUtils.getExtension(currfile.getFileName()));
+		    		
+	
+		    	String fullfilelocation = currlocation + currfile.getFileName();
+		    	File myfile = new File(fullfilelocation);
+		    	
+		    	newrefinedfiles.add(currfstore);
+	    	   
+		    	OutputStream out = new FileOutputStream(myfile);
+		    	InputStream in = currfile.getInputstream();
+	
+		    	org.apache.commons.io.IOUtils.copy(in, out);
+	
+	    		out.close();
+    		 }
     	
     	}
     	catch(Exception ex)
@@ -264,7 +220,7 @@ public class FileUploadController implements Serializable{
     public void handleFileUpload(FileUploadEvent event) {
     	if(event!=null)
     	{
-    	UploadedFile currentfile = 	event.getFile();
+    	
     	newfiles = new ArrayList<UploadedFile> ();
     	
     	this.setFile(event.getFile());
@@ -276,14 +232,14 @@ public class FileUploadController implements Serializable{
     	
     	if(checkUploads())
     	{
-    	this.newfiles.add(event.getFile());
-    	FileSave();
-    	FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+	    	this.newfiles.add(event.getFile());
+	    	FileSave();
+	    	FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+			FacesContext.getCurrentInstance().addMessage(null, msg);
     	}
     	else
     	{
-    		 FacesMessage msg = new FacesMessage("You can not upload a file with the same name as a file already stored.", file.getFileName() + " was not saved. Please change the name and try again.");
+    		FacesMessage msg = new FacesMessage("You can not upload a file with the same name as a file already stored.", file.getFileName() + " was not saved. Please change the name and try again.");
     	    FacesContext.getCurrentInstance().addMessage(null, msg);
     	}
     	

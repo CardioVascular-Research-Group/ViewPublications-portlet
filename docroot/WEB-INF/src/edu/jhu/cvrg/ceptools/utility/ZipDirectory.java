@@ -29,6 +29,7 @@ public class ZipDirectory implements Serializable{
 	
 	  private static Logger logger = Logger.getLogger(ZipDirectory.class.getName());  
 	  private int pmid;
+		private static final long serialVersionUID = 6L;
 
 	public ZipDirectory()
 	{

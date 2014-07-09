@@ -23,7 +23,7 @@ public class FileStorer implements Serializable{
 	private File validator;
 	private long filesize;
 	private String figpandisplay;
-	
+	private static final long serialVersionUID = 4L;
 	
 	
 	private int index;
