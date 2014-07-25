@@ -65,7 +65,7 @@
 		                </f:facet> 
 		            </p:cellEditor>  
 		        </p:column>  
-		        <p:column headerText="Results" style="width:35%">  
+		        <p:column headerText="Error Messages for Incorrectly Entered Descriptions" style="width:35%; background-color:#BFBFCB" >  
 		           <h:outputText value="#{mfiles.message}" style="color: red"/>  
 		        </p:column> 
 	  
@@ -108,7 +108,7 @@
 		        </p:column>  
 		  
 		  
-		        <p:column headerText="Description" style="width:35%">  
+		        <p:column headerText="Description" style="width:35%" >  
 		            <p:cellEditor>  
 		                  <f:facet name="output">  
 		                    <h:outputText value="#{nfiles.description}" />  
@@ -118,7 +118,7 @@
 		                </f:facet> 
 		            </p:cellEditor>  
 		        </p:column>  
-		        <p:column headerText="" style="width:35%">  
+		        <p:column id="descriptionerrors" headerText="Error Messages for Incorrectly Entered Descriptions" style="width:35%; background-color:#BFBFCB">  
 		  
 		                    <h:outputText value="#{nfiles.message}" style="color: red"/>  
 		        </p:column> 
@@ -130,9 +130,15 @@
 		<br/>
 		<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>		
 		<br/>
-		<p:commandButton value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint2}" update="messages2"/>
-		<p:commandButton value="Next" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update="messages2"/><br/>
+		<h:outputText value="Click to save your progess and store this publication record to your account. You may access the record at any time on the View Publications page to proceed with completing the entry." /><br/><br/>
 		
+		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(7)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+		<h:outputText value="Save and return to the main page. If you have uploaded new files, your publication will be marked incomplete and will not be accessible until all newly uploaded files receive descriptions and are submitted." /><br/><br/>
+	  		
+		
+		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Submit and Complete Publication" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+		<h:outputText value="Selecting this button will complete your submission and make it available to all users. You may return to add new files to this publication at any time through View My Publications" style="color:red"/><br/><br/>
 	
 	</h:form>
 

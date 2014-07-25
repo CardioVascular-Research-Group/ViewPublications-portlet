@@ -32,6 +32,8 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.params.CoreAdminParams.CoreAdminAction;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import com.liferay.faces.portal.context.LiferayFacesContext;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -435,6 +437,40 @@ public class ViewPublications implements Serializable{
 		{
 			return filesfromsolr;
 		}
+		
+		public void handleFileSave(FileUploadEvent event)
+		{
+			if(event!=null)
+	    	{
+				fchooser.setNewfiles( new ArrayList<UploadedFile> ());
+		    	
+		    	fchooser.setFile(event.getFile());
+		    	
+		    	if(fchooser.getFilesondrive().isEmpty())
+		    	{
+		    		 fchooser.RetrieveFiles();	
+		    	}
+		    	
+		    	if(fchooser.checkUploads())
+		    	{
+		    		fchooser.getNewfiles().add(event.getFile());
+			    	fchooser.FileSave();
+			    	draftPointSave1();
+			    	FacesMessage msg = new FacesMessage("Successful", event.getFile().getFileName() + " is uploaded.");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+		    	}
+		    	else
+		    	{
+		    		FacesMessage msg = new FacesMessage("You can not upload a file with the same name as a file already stored.", fchooser.getFile().getFileName() + " was not saved. Please change the name and try again.");
+		    	    FacesContext.getCurrentInstance().addMessage(null, msg);
+		    	}
+		    	
+		    	
+		    	
+		    	
+				
+	    	}
+		}
 	
 	    
 	    public void handleRefresh1(ActionEvent event)
@@ -461,7 +497,10 @@ public class ViewPublications implements Serializable{
 	
 	  public void moveStep(int nextstep)
    {
-		  
+		 if(nextstep > 5)
+		 {
+			 step = nextstep;
+		 }
 
 		  switch(step)
 		  {
@@ -505,10 +544,33 @@ public class ViewPublications implements Serializable{
 				   step = 3;
 			   }
 			  break;
-		  case 4: case 5:	  
+		  case 4: 
+	      case 5:	  
 			  Clean();
 			  step = 1;
 			  break;
+			  
+		  case 6:
+			
+				  combineFiles();
+			  draftPointSave1();
+			
+			  Clean();
+			  logger.info("here2");
+			  step = 1;
+			  break;
+		  case 7:
+			
+			  combineFiles();
+			  draftPointSave2();
+			
+			  
+			  Clean();
+			  logger.info("here2");
+			  step = 1;
+			  break;
+			  
+			  
 		  default: step = 1;
           break;
 		  }
@@ -863,7 +925,7 @@ public void setSOLRVariablesCombined()
 public void draftPointSave1()
 {
 	
-	setSOLRVariables();
+	setSOLRVariablesCombined();
 
 	try
 	{
@@ -888,7 +950,7 @@ public void draftPointSave1()
 //update SOLR with the user's draftpoint save point 2
 public void draftPointSave2()
 {
-	setSOLRVariables();
+	setSOLRVariablesCombined();
 
 	try
 	{

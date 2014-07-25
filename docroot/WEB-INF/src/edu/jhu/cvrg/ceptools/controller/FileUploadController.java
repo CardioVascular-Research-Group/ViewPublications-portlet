@@ -137,7 +137,7 @@ public class FileUploadController implements Serializable{
     	}
     }
     
-    private void RetrieveFiles() {
+    public void RetrieveFiles() {
 		 
 		
 	

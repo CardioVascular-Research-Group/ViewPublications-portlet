@@ -10,6 +10,8 @@
 
  
 	<h:form id="finalcomplete" >  
+	
+	<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Return to View My Publications" id="startover" action="#{viewPublications.moveStep(5)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);" /> <br/><br/>
 
 			<h:outputText style="font-weight: bold" value="#{viewPublications.selectedpub.title}"  id="selectedpubconfirmtt4"/> <br/>
 			<h:outputText value="#{viewPublications.selectedpub.fullnames}"  id="selectedpubconfirmff4"/>. <br/>
@@ -27,7 +29,7 @@
 						
 			<br/>PMID: <h:outputText value="#{viewPublications.selectedpub.pmid}"  id="pmid1"/> <br/>
 			<br/>
-		   	<p:commandButton  id="downloadziponly" value="Click to Download All Files (.zip)" action="#{viewPublications.downloadZipOnly()}" ajax="false"/>
+		   	<p:commandButton  id="downloadziponly" style="font-size-adjust: .7; padding: 3px" value="Click to Download All Files (.zip)" action="#{viewPublications.downloadZipOnly()}" ajax="false"/>
 		 
 		 	<br/><br/>
 			
@@ -50,13 +52,13 @@
 					</p:column>
 						  
 					 <p:column headerText="Download" >
-		 				<p:commandButton  id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
+		 				<p:commandButton style="font-size-adjust: .7; padding: 3px" id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
 		 			</p:column>
 
 		</p:dataTable >
 		
 		<br/>
-		<p:commandButton value="Return to View My Publications" id="startover" action="#{viewPublications.moveStep(5)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);" />
+		
 
 	</h:form>
 		
