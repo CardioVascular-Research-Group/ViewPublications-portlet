@@ -100,10 +100,7 @@ public class FileUploadController implements Serializable{
         this.file = file;
     }
 
-    public void upload() {
-        FacesMessage msg = new FacesMessage("Successful", file.getFileName() + " is uploaded.");
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
+  
     
     public boolean checkUploads()
     {

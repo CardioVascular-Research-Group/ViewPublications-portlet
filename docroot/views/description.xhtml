@@ -15,9 +15,9 @@
 		<br/><br/>
 		
 		<h:outputText value="For each uploaded file:" /> <br/>
-		<h:outputText value="-If the data file you have uploaded corresponds to a single figure, please enter the figure number and panel label(s) in the corresonding fields below" /> <br/>
-		<h:outputText value="-If the data file you have uploaded corresponds to more than one figure, please enter the figure number and panel label(s) of the first figure in the corresponding fields below, and enter the additonal figures and panel labels in the corresponding description field" /> <br/>
-		<h:outputText value="-For files containing data that are referenced in the text or as &quot;data not shown &quot;, please use the description field to indicate the page number or section title corresponding to the in-text reference" /> <br/>  
+		<h:outputText value="-If the data file you have uploaded corresponds to a single figure, please enter the figure number and panel label(s) in the corresonding fields below." /> <br/>
+		<h:outputText value="-If the data file you have uploaded corresponds to more than one figure, please enter the figure number and panel label(s) of the first figure in the corresponding fields below, and enter the additonal figures and panel labels in the corresponding description field." /> <br/>
+		<h:outputText value="-For files containing data that are referenced in the text or as &quot;data not shown &quot;, please use the description field to indicate the page number or section title corresponding to the in-text reference." /> <br/>  
 	
 	
 		<p:growl id="messages" showDetail="true"/>  
@@ -28,7 +28,7 @@
 		            Currently Stored Files
 		        </f:facet>  
 		  
-		        <p:column headerText="Original Filename" style="width:10%">  
+		        <p:column headerText="Filename" style="width:10%">  
 		                   #{mfiles.filename} 
 		        </p:column>  
 		  
@@ -65,7 +65,7 @@
 		                </f:facet> 
 		            </p:cellEditor>  
 		        </p:column>  
-		        <p:column headerText="Error Messages for Incorrectly Entered Descriptions" style="width:35%; background-color:#BFBFCB" >  
+		        <p:column headerText="Error Messages" style="width:35%; background-color:#BFBFCB" >  
 		           <h:outputText value="#{mfiles.message}" style="color: red"/>  
 		        </p:column> 
 	  
@@ -80,7 +80,7 @@
 		        </f:facet>  
 		  
 		
-		        <p:column headerText="Original Filename" style="width:10%">  
+		        <p:column headerText="Filename" style="width:10%">  
 		           #{nfiles.filename} 
 		        </p:column>  
 		  
@@ -118,7 +118,7 @@
 		                </f:facet> 
 		            </p:cellEditor>  
 		        </p:column>  
-		        <p:column id="descriptionerrors" headerText="Error Messages for Incorrectly Entered Descriptions" style="width:35%; background-color:#BFBFCB">  
+		        <p:column id="descriptionerrors" headerText="Error Messages" style="width:35%; background-color:#BFBFCB">  
 		  
 		                    <h:outputText value="#{nfiles.message}" style="color: red"/>  
 		        </p:column> 
@@ -130,16 +130,17 @@
 		<br/>
 		<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>		
 		<br/>
+		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Set Publication Record to Visible" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+		 <h:outputText value="Selecting this button will update the record on CEP Tools and make it visible to all users. You may return to this record to add new files and/or modify descriptions in the future by selecting View My Publications in the top menu." style="color:red"/><br/><br/><br/>
+		
 		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update="messages2"/><br/>
-		<h:outputText value="Click to save your progess and store this publication record to your account. You may access the record at any time on the View Publications page to proceed with completing the entry." /><br/><br/>
+		<h:outputText value="Click to save your progess and store this publication record to your account." /><br/><br/>
 		
 		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(7)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
-		<h:outputText value="Save and return to the main page. If you have uploaded new files, your publication will be marked incomplete and will not be accessible until all newly uploaded files receive descriptions and are submitted." /><br/><br/>
-	  		
+		<h:outputText value="Click to save your progess, store this publication record to your account, and return to the View My Publications main page." /><br/><br/>
 		
-		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Submit and Complete Publication" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
-		<h:outputText value="Selecting this button will complete your submission and make it available to all users. You may return to add new files to this publication at any time through View My Publications" style="color:red"/><br/><br/>
-	
+		
+		
 	</h:form>
 
 

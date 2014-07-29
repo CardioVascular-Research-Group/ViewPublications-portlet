@@ -9,10 +9,9 @@
 
 	<h:form id="uploader" enctype="multipart/form-data">
 		
-		<h:outputText value="You may upload files you would like to associate with the publication selected."/><br/>
+			<h:outputText value="Please upload additional files you would like to associate with this publication record. "/><br/>
 		<h:outputText value="If you do not wish to upload any new files, proceed to the next step."/>
-		<br/><br/>
-				   					
+		<br/><br/>		   					
 		<h:outputText style="font-weight: bold" value="#{viewPublications.selectedpub.title}"  id="selectedpubconfirmtt3"/>. <br/>
 		<h:outputText value="#{viewPublications.selectedpub.fullnames}"  id="selectedpubconfirmff3"/>. 
 		<h:outputText value="#{viewPublications.selectedpub.journalname}"  id="selectedpubconfirmjn3"/>.<h:outputText value="&#160;" />
@@ -75,26 +74,25 @@
 	   		<br/><br/>
 	   		<p:growl id="messages" life="10000" showDetail="true" sticky="true"/>  
 	   		<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>	
-	   		  <h:outputText value="To upload files to this record:" style="font-weight: bold"/><br/>
-	    <h:outputText value="Choose:" style="font-weight: bold"/> <h:outputText value=" Select data files for upload. You may select multiple files by pressing the Ctrl button. If an invalid file type is chosen, you may continue to upload other files by pressing Choose again." /><br/>
-	    <h:outputText value="Upload:" style="font-weight: bold"/>  <h:outputText value=" Upload all selected files simultaneously. You may upload individual files by selected the up arrow icon to the right of the file." /><br/>
-	    <h:outputText value="Cancel:"  style="font-weight: bold"/>  <h:outputText value=" Cancel all uploads in progress after uploading to the site has begun. You may cancel individual files in progress by using the far right most icon next to the file." /><br/>
-	  
-	   	<h:outputText value="Files may not be deleted after they are uploaded." style="font-weight: bold"/><br/>
-	   	<h:outputText value="Acceptable File Types: "  style="font-weight: bold"/><br/>
+	   		
+	   	<h:outputText value="To upload files to this record:" style="font-weight: bold"/><br/>
+	    <h:outputText value="Choose:" style="font-weight: bold"/> <h:outputText value=" Select data files for upload. You may select multiple files by pressing the Ctrl button. If you receive a message about an invalid file type, you may continue to upload additional files by pressing the Choose button again." /><br/>
+	    <h:outputText value="Upload:" style="font-weight: bold"/>  <h:outputText value=" Upload all selected files simultaneously. You may upload individual files by selecting the up arrow icon to the right of the filename in the list." /><br/>
+	    <h:outputText value="Cancel:"  style="font-weight: bold"/>  <h:outputText value=" Cancel all uploads in progress after uploading to the site has begun. You may cancel individual files uploads in progress by selecting the cancel button (circle-slash symbol) to the right of the file name in the list." /><br/>
+	    <h:outputText value="You may also drag and drop files into the space below to add them to the upload queue."/> <br/>
+	   	<h:outputText value="Files may not be deleted from the CEP Tools repository after they are uploaded." style="font-weight: bold"/><br/>
+	   	<h:outputText value="Acceptable File Types: "  style="font-weight: bold"/>
 	   	<h:outputText value=".doc, .docx, .xls, .xlsx, .pdf, .abf, .xml, .pgf, .pul, .amp, .dat, .txt, .zip, .tar, .jpg, .jpeg, .png, .tiff, .tif, .jif, .jfif, .jp2, .jpx, .j2k, .j2c" /><br/>
 	   
-	   		<p:fileUpload fileUploadListener="#{viewPublications.handleFileSave}" mode="advanced" style="width: 100%; height: 250px; display: block; " dragDropSupport="true" update="messages,:uploader:newf" multiple="true" fileLimit="5" sizeLimit="1000000000" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar|jpg|jpeg|png|tiff|tif|jif|jfif|jp2|jpx|j2k|j2c)$/" /> 
+	   		<p:fileUpload fileUploadListener="#{viewPublications.handleFileSave}" mode="advanced" style="width: 100%; height: 200px; display: block; " dragDropSupport="true" update="messages,:uploader:newf" multiple="true" fileLimit="5" sizeLimit="1000000000" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar|jpg|jpeg|png|tiff|tif|jif|jfif|jp2|jpx|j2k|j2c)$/" /> 
 
-			<br/>
-			<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update="messages2"/><br/>
-			<h:outputText value="Click to save your progess and store this publication record to your account, including all newly uploaded files. You may access the record at any time on the View My Publications page to proceed with adding descriptions to the new files." /><br/><br/>
+			<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Next: Add or Edit File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/> <br/><br/><br/>
+		
+	  		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+			<h:outputText value="If you do not wish to add file descriptions at this time, please click to save your progress. You will return to the View My Publications main page. " /><br/><br/>
 	  		
-	  		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
-			<h:outputText value="Save and return to the main page. If you have uploaded new files, your publication will be marked incomplete and will not be accessible until all newly uploaded files receive descriptions and are submitted." /><br/><br/>
 	  		
-	  		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Next: Add File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
-	
+	<br/><br/><br/><br/><br/><br/><br/><br/>
 		</h:form> 
 	
 </f:view>

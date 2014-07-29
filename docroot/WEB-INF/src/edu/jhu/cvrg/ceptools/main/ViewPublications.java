@@ -556,7 +556,7 @@ public class ViewPublications implements Serializable{
 			  draftPointSave1();
 			
 			  Clean();
-			  logger.info("here2");
+			 
 			  step = 1;
 			  break;
 		  case 7:
@@ -566,7 +566,7 @@ public class ViewPublications implements Serializable{
 			
 			  
 			  Clean();
-			  logger.info("here2");
+			
 			  step = 1;
 			  break;
 			  
@@ -853,8 +853,6 @@ public void handleFileSavePoint1(ActionEvent event) {
 	if(event!=null)
 	{
 	
-	FacesMessage msg1 = new FacesMessage("Saving your progress...please wait.", "");
-	FacesContext.getCurrentInstance().addMessage(null, msg1);
 	
 	if(step ==2)
 	{
@@ -866,7 +864,7 @@ public void handleFileSavePoint1(ActionEvent event) {
 	}
 
 	
-	FacesMessage msg2 = new FacesMessage("Your progress is saved."," You may access your draft under 'View My Publications'.");
+	FacesMessage msg2 = new FacesMessage("Your progress is saved."," You may access your publication record under 'View My Publications'.");
 	FacesContext.getCurrentInstance().addMessage(null, msg2);
 	}
 }
@@ -926,12 +924,29 @@ public void draftPointSave1()
 {
 	
 	setSOLRVariablesCombined();
+	String stat;
+	
+	if(selectedpub.getCompletion() == true)
+	{
+		stat = "true";
+	}
+	else
+	{
+		stat = "false";
+	}
 
 	try
 	{
 
 	setSOLRMetadata();
+	if(fchooser.getNewfiles().isEmpty())
+	{
+	metadoc.addField("completion", stat);
+	}
+	else
+	{
 	metadoc.addField("completion", "false");
+	}
 	metadoc.addField("draftpoint", "1" );
 
     	
@@ -951,13 +966,31 @@ public void draftPointSave1()
 public void draftPointSave2()
 {
 	setSOLRVariablesCombined();
+	String stat;
+	
+	if(selectedpub.getCompletion() == true)
+	{
+		stat = "true";
+	}
+	else
+	{
+		stat = "false";
+	}
 
 	try
 	{
 
-	 setSOLRMetadata();
+	setSOLRMetadata();
+	if(fchooser.getNewfiles().isEmpty())
+	{
+	metadoc.addField("completion", stat);
+	}
+	else
+	{
+	metadoc.addField("completion", "false");
+	}
 
-	 metadoc.addField("completion", "false");
+	
 	 metadoc.addField("draftpoint", "2" );
 	
 	 server.add(metadoc);
@@ -1164,11 +1197,11 @@ public void getUserEntries()
 						
 						if(currlist.getCompletion() == false)
 						{
-							currlist.setComp("No");
+							currlist.setComp("Hidden");
 						}
 						else
 						{
-							currlist.setComp("Yes");
+							currlist.setComp("Visible");
 						}
 
 						publications.add(currlist);
@@ -1193,7 +1226,7 @@ public void setSOLRMetadata()
 
 	 server = new HttpSolrServer ("http://localhost:8983/solr");
 	 
-	metadoc = new SolrInputDocument();
+	 metadoc = new SolrInputDocument();
 	 
 	 metadoc.addField("pmid", selectedpub.getPmid());
 	 //metadoc.addField("pid", UUID.randomUUID());
