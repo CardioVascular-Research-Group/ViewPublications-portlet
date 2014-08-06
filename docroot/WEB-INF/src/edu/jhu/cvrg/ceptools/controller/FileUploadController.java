@@ -145,13 +145,13 @@ public class FileUploadController implements Serializable{
     	{
     		
            String absolutePath = currfile.getAbsolutePath();
-    		FileStorer currfilestore = new FileStorer();
-    		currfilestore.setFilename(currfile.getName());
-    		currfilestore.setFilelocation(currlocation);
-    		currfilestore.setFiletype(FilenameUtils.getExtension(currfile.getName()));
-    		currfilestore.setLocalfilestore( absolutePath.substring(0,absolutePath.lastIndexOf(File.separator)));
+           FileStorer currfilestore = new FileStorer();
+           currfilestore.setFilename(currfile.getName());
+           currfilestore.setFilelocation(currlocation);
+           currfilestore.setFiletype(FilenameUtils.getExtension(currfile.getName()));
+           currfilestore.setLocalfilestore( absolutePath.substring(0,absolutePath.lastIndexOf(File.separator)));
     		
-    		filesondrive.add(currfilestore);
+           filesondrive.add(currfilestore);
     	}
     	
     	
@@ -163,23 +163,18 @@ public class FileUploadController implements Serializable{
     	String currpmid  = String.valueOf(pmid);
     	String currlocation = PropsUtil.get("data_store2")+ currpmid+"/";
 
-    	
     	FileStorer currfstore = new FileStorer();
     	File thedir = new File(currlocation);
     	
-    	 
     	if(!thedir.exists())
     	{
- 
     	 thedir.mkdirs();
-   
-    	}
+       	}
 
     	//Now add files to it
     	 try
     	   {
     		
-    	 
     		 for(org.primefaces.model.UploadedFile currfile: newfiles)
     		 { 
 	    		currfstore = new FileStorer();
@@ -217,10 +212,8 @@ public class FileUploadController implements Serializable{
     public void handleFileUpload(FileUploadEvent event) {
     	if(event!=null)
     	{
-    	
-    	newfiles = new ArrayList<UploadedFile> ();
-    	
-    	this.setFile(event.getFile());
+    		newfiles = new ArrayList<UploadedFile> ();
+    		this.setFile(event.getFile());
     	
     	if(filesondrive.isEmpty())
     	{

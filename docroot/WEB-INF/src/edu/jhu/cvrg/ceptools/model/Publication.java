@@ -5,19 +5,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
-
-
-
-
 
 
 public class Publication implements Serializable{
 	
 	  
-	private static final long serialVersionUID = 5L;
-	    private static Logger logger2 = Logger.getLogger(Publication.class.getName());  
+		private static final long serialVersionUID = 5L;
         
         private List<String> fauthors;
 	    private List<String> lauthors;
@@ -191,9 +184,6 @@ public class Publication implements Serializable{
     	  return fullnames;
       }
         
-   
-	    
-	   
 	   public void setYear(String year )
 	   {
 		   this.year = year;

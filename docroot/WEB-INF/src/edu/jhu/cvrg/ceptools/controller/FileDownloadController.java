@@ -17,13 +17,10 @@ import org.primefaces.model.StreamedContent;
 import edu.jhu.cvrg.ceptools.model.FileStorer;
 
 
-
-  
 @ManagedBean(name="fileDownloadController")
 @ViewScoped
 
 
-  
 public class FileDownloadController implements Serializable{  
   
     private StreamedContent file;  

@@ -2,16 +2,12 @@ package edu.jhu.cvrg.ceptools.utility;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -123,9 +119,7 @@ public class ZipDirectory implements Serializable{
 		  {
 			  if(removedzip.exists())
 			  {
-			  boolean stat = removedzip.delete();
-			  
-		
+				  removedzip.delete();
 			  }
 		  }
 		  catch (Exception ex)

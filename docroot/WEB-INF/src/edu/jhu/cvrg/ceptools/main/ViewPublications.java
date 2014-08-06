@@ -167,15 +167,15 @@ public class ViewPublications implements Serializable{
     	 getUserEntries();
 	}
 	
-	public String getUserId()
-	{
-		return userId;
-	}
+		public String getUserId()
+		{
+			return userId;
+		}
 	
-	public void setUserId(String m)
-	{
-		userId = m;
-	}
+		public void setUserId(String m)
+		{
+			userId = m;
+		}
 
 	
 	 	public Publication getSelectedpub()
@@ -221,15 +221,15 @@ public class ViewPublications implements Serializable{
 	    
 	    public int getIndex()
 	    {
-      	return index;
+	    	return index;
 	    }
       
-      public void setIndex(int i)
-      {
-      	this.index = i;
-      }
+	    public void setIndex(int i)
+	    {
+	    	this.index = i;
+	    }
       
-      public List<FileStorer> getNewfiles()
+	    public List<FileStorer> getNewfiles()
 	    {
 	    	return newfiles;
 	    }
@@ -271,14 +271,14 @@ public class ViewPublications implements Serializable{
 	    
 	    
 	    public  String getUserauthor()
-      {
-      	return userauthor;
-      }
+	    {
+	    	return userauthor;
+	    }
       
-      public  String getUsertitle()
-      {
+	   public  String getUsertitle()
+	   {
       	return usertitle;
-      }
+	   }
       public  String getUserpmid()
       {
       	return userpmid;
@@ -1019,202 +1019,203 @@ public void draftPointSave3()
 		logger.info(ex);
 	}
 }
+
 @SuppressWarnings("unchecked")
 public void getUserEntries()
 {
 
-		  //Get this user's ID
+  //Get this user's ID
 
-			User currentUser = LiferayFacesContext.getInstance().getUser();
-			String userId = Long.toString(currentUser.getUserId());
-		  
-		  //search solr with for all results with this user's ID
+	User currentUser = LiferayFacesContext.getInstance().getUser();
+	String userId = Long.toString(currentUser.getUserId());
+  
+  //search solr with for all results with this user's ID
 
-				 try
-				 {
-					
-					 CoreAdminRequest adminRequest = new CoreAdminRequest();
-					 adminRequest.setAction(CoreAdminAction.RELOAD);
+		 try
+		 {
+			
+			 CoreAdminRequest adminRequest = new CoreAdminRequest();
+			 adminRequest.setAction(CoreAdminAction.RELOAD);
 
-					 SolrServer solr = new HttpSolrServer ("http://localhost:8983/solr");
+			 SolrServer solr = new HttpSolrServer ("http://localhost:8983/solr");
 
-					 String query;
+			 String query;
 
-					 query = "lruid:" + userId;
-					 
-					
-					 SolrQuery theq = new SolrQuery();
-					 theq.setQuery(query);
-					 theq.setStart(0);
-					 theq.setRows(10000);
-					 
-					 QueryResponse response = new QueryResponse();
+			 query = "lruid:" + userId;
+			 
+			
+			 SolrQuery theq = new SolrQuery();
+			 theq.setQuery(query);
+			 theq.setStart(0);
+			 theq.setRows(10000);
+			 
+			 QueryResponse response = new QueryResponse();
 
-					 response = solr.query(theq);
+			 response = solr.query(theq);
 
-					 SolrDocumentList list = response.getResults();
+			 SolrDocumentList list = response.getResults();
+		
+
+			 int docnum = 1;
+			 for(SolrDocument doc: list)
+			 {
+				Publication currlist = new Publication();
 				
-
-					 int docnum = 1;
-					 for(SolrDocument doc: list)
-					 {
-						Publication currlist = new Publication();
-						
-						 List<String> fullnames =  new ArrayList<String> ();
-						 String currepubsum1 = "", currepubsum2 = "";
-						
-						currlist.setTitle(doc.getFieldValue("ptitle").toString());
-						currlist.setAbstract(doc.getFieldValue("abstract").toString());
-					    currlist.setPmid(Integer.valueOf(doc.getFieldValue("pmid").toString()));
-						
-					    pmid = String.valueOf(currlist.getPmid());
-						
-						if(doc.getFieldValue("journalname")!=null)
-						{
-						currlist.setJournalname(doc.getFieldValue("journalname").toString());
-						}
-						
-						if(doc.getFieldValue("journalyear")!=null)
-						{
-						currlist.setJournalyear(doc.getFieldValue("journalyear").toString());
-						}
-						if(doc.getFieldValue("journalday")!=null)
-						{
-						currlist.setJournalday(doc.getFieldValue("journalday").toString());
-						}
-						if(doc.getFieldValue("journalmonth")!=null)
-						{
-						currlist.setJournalmonth(doc.getFieldValue("journalmonth").toString());
-						}
-						if(doc.getFieldValue("journalpage")!=null)
-						{
-						currlist.setJournalstartpg(doc.getFieldValue("journalpage").toString());
-						}
-						if(doc.getFieldValue("journalissue")!=null)
-						{
-						currlist.setJournalissue(doc.getFieldValue("journalissue").toString());
-						}
-						if(doc.getFieldValue("journalvolume")!=null)
-						{
-						currlist.setJournalvolume(doc.getFieldValue("journalvolume").toString());
-						}
-						if(doc.getFieldValue("publicationdate_year")!=null)
-						{
-						currlist.setYear(doc.getFieldValue("publicationdate_year").toString());
-						}
-						if(doc.getFieldValue("doi") != null)
-						{
-						currlist.setDoi(doc.getFieldValue("doi").toString());
-						}
-						
-						if(doc.getFieldValues("pfileinfo") != null)
-						{
-						
-							Collection<Object> currcoll = doc.getFieldValues("pfileinfo");
-							
-							for(Object currobj: currcoll)
-							{
-								convertStore(String.valueOf(currobj), currlist);
-							}
-							
-						}
-						if(doc.getFieldValue("author_firstname") != null)
-						{
-						currlist.setFauthors((List<String>) doc.getFieldValue("author_firstname"));
-						}
-						if(doc.getFieldValue("author_lastname") != null)
-						{
-						currlist.setLauthors((List<String>) doc.getFieldValue("author_lastname"));
-						}
-						
-						if(doc.getFieldValue("epubmonth") != null)
-						{
-						currlist.setEpubmonth(doc.getFieldValue("epubmonth").toString());
-						}
-						
-						if(doc.getFieldValue("epubyear") != null)
-						{
-						currlist.setEpubyear(doc.getFieldValue("epubyear").toString());
-						}
-						if(doc.getFieldValue("epubday") !=null)
-						{
-						currlist.setEpubday(doc.getFieldValue("epubday").toString());
-						}
-						if(doc.getFieldValue("author_fullname_list") !=null)
-						{
-							
-							currlist.setAuthorfull(doc.getFieldValue("author_fullname_list").toString());
-						}
+				 List<String> fullnames =  new ArrayList<String> ();
+				 String currepubsum1 = "", currepubsum2 = "";
+				
+				currlist.setTitle(doc.getFieldValue("ptitle").toString());
+				currlist.setAbstract(doc.getFieldValue("abstract").toString());
+			    currlist.setPmid(Integer.valueOf(doc.getFieldValue("pmid").toString()));
+				
+			    pmid = String.valueOf(currlist.getPmid());
+				
+				if(doc.getFieldValue("journalname")!=null)
+				{
+				currlist.setJournalname(doc.getFieldValue("journalname").toString());
+				}
+				
+				if(doc.getFieldValue("journalyear")!=null)
+				{
+				currlist.setJournalyear(doc.getFieldValue("journalyear").toString());
+				}
+				if(doc.getFieldValue("journalday")!=null)
+				{
+				currlist.setJournalday(doc.getFieldValue("journalday").toString());
+				}
+				if(doc.getFieldValue("journalmonth")!=null)
+				{
+				currlist.setJournalmonth(doc.getFieldValue("journalmonth").toString());
+				}
+				if(doc.getFieldValue("journalpage")!=null)
+				{
+				currlist.setJournalstartpg(doc.getFieldValue("journalpage").toString());
+				}
+				if(doc.getFieldValue("journalissue")!=null)
+				{
+				currlist.setJournalissue(doc.getFieldValue("journalissue").toString());
+				}
+				if(doc.getFieldValue("journalvolume")!=null)
+				{
+				currlist.setJournalvolume(doc.getFieldValue("journalvolume").toString());
+				}
+				if(doc.getFieldValue("publicationdate_year")!=null)
+				{
+				currlist.setYear(doc.getFieldValue("publicationdate_year").toString());
+				}
+				if(doc.getFieldValue("doi") != null)
+				{
+				currlist.setDoi(doc.getFieldValue("doi").toString());
+				}
+				
+				if(doc.getFieldValues("pfileinfo") != null)
+				{
+				
+					Collection<Object> currcoll = doc.getFieldValues("pfileinfo");
 					
-						int counter = 0;
-						
-						for(String currstring: currlist.getFauthors())
-						{
-						    currstring += " " + currlist.getLauthors().get(counter); 
-						    fullnames.add(currstring);
-							counter++;
-						}
-						
-						currlist.setFullnames(fullnames);
-						
-						if(currlist.getJournalvolume().length()>0)
-		  	        	{
-		  	        		currepubsum2 +=  currlist.getJournalvolume();
-		  	        	}
-		  	        	
-		  	        	if(currlist.getJournalissue().length()>0)
-		  	        	{
-		  	        		currepubsum2 += "("+ currlist.getJournalissue() + ")"+ ":";
-		  	        	}
-		  	        	
-		  	        	if(currlist.getJournalstartpg().length()>0)
-		  	        	{
-		  	        		currepubsum2 += currlist.getJournalstartpg() + ".";
-		  	        	}
+					for(Object currobj: currcoll)
+					{
+						convertStore(String.valueOf(currobj), currlist);
+					}
+					
+				}
+				if(doc.getFieldValue("author_firstname") != null)
+				{
+				currlist.setFauthors((List<String>) doc.getFieldValue("author_firstname"));
+				}
+				if(doc.getFieldValue("author_lastname") != null)
+				{
+				currlist.setLauthors((List<String>) doc.getFieldValue("author_lastname"));
+				}
+				
+				if(doc.getFieldValue("epubmonth") != null)
+				{
+				currlist.setEpubmonth(doc.getFieldValue("epubmonth").toString());
+				}
+				
+				if(doc.getFieldValue("epubyear") != null)
+				{
+				currlist.setEpubyear(doc.getFieldValue("epubyear").toString());
+				}
+				if(doc.getFieldValue("epubday") !=null)
+				{
+				currlist.setEpubday(doc.getFieldValue("epubday").toString());
+				}
+				if(doc.getFieldValue("author_fullname_list") !=null)
+				{
+					
+					currlist.setAuthorfull(doc.getFieldValue("author_fullname_list").toString());
+				}
+			
+				int counter = 0;
+				
+				for(String currstring: currlist.getFauthors())
+				{
+				    currstring += " " + currlist.getLauthors().get(counter); 
+				    fullnames.add(currstring);
+					counter++;
+				}
+				
+				currlist.setFullnames(fullnames);
+				
+				if(currlist.getJournalvolume().length()>0)
+  	        	{
+  	        		currepubsum2 +=  currlist.getJournalvolume();
+  	        	}
+  	        	
+  	        	if(currlist.getJournalissue().length()>0)
+  	        	{
+  	        		currepubsum2 += "("+ currlist.getJournalissue() + ")"+ ":";
+  	        	}
+  	        	
+  	        	if(currlist.getJournalstartpg().length()>0)
+  	        	{
+  	        		currepubsum2 += currlist.getJournalstartpg() + ".";
+  	        	}
 
-			              
-		  	        	if( currlist.getEpubday().length()<1 && currlist.getEpubmonth().length()<1  && currlist.getEpubyear().length()<1)
-		  	        	{
-		  	        		currepubsum1 = "[Epub ahead of print]"; 
-	  	            	 }
-		  	        	else if(currlist.getEpubyear().length()>0)
-		  	        	{
-		  	        		currepubsum1= "Epub "  + currlist.getEpubyear() + " " + currlist.getEpubmonth() + " " + currlist.getEpubday();
-		  	        	}
-		  	        	else
-		  	        	{
-		  	        		currepubsum1 = "";
-		  	        	}
-						
-			              currlist.setEpubsum(currepubsum1);
-			              currlist.setEpubsum2(currepubsum2);
-			              currlist.setIndex(docnum);
+	              
+  	        	if( currlist.getEpubday().length()<1 && currlist.getEpubmonth().length()<1  && currlist.getEpubyear().length()<1)
+  	        	{
+  	        		currepubsum1 = "[Epub ahead of print]"; 
+            	 }
+  	        	else if(currlist.getEpubyear().length()>0)
+  	        	{
+  	        		currepubsum1= "Epub "  + currlist.getEpubyear() + " " + currlist.getEpubmonth() + " " + currlist.getEpubday();
+  	        	}
+  	        	else
+  	        	{
+  	        		currepubsum1 = "";
+  	        	}
+				
+	              currlist.setEpubsum(currepubsum1);
+	              currlist.setEpubsum2(currepubsum2);
+	              currlist.setIndex(docnum);
 
-			              currlist.setTitle(doc.getFieldValue("ptitle").toString());
-			              currlist.setFirst5authors(doc.getFieldValue("author_fullname_list").toString());
-			              currlist.setPmid(Integer.valueOf(doc.getFieldValue("pmid").toString()));
-			              currlist.setCompletion(Boolean.valueOf(doc.getFieldValue("completion").toString()));
-						
-						if(currlist.getCompletion() == false)
-						{
-							currlist.setComp("Hidden");
-						}
-						else
-						{
-							currlist.setComp("Visible");
-						}
+	              currlist.setTitle(doc.getFieldValue("ptitle").toString());
+	              currlist.setFirst5authors(doc.getFieldValue("author_fullname_list").toString());
+	              currlist.setPmid(Integer.valueOf(doc.getFieldValue("pmid").toString()));
+	              currlist.setCompletion(Boolean.valueOf(doc.getFieldValue("completion").toString()));
+				
+				if(currlist.getCompletion() == false)
+				{
+					currlist.setComp("Hidden");
+				}
+				else
+				{
+					currlist.setComp("Visible");
+				}
 
-						publications.add(currlist);
-						docnum++;
-					 }
+				publications.add(currlist);
+				docnum++;
+			 }
 
-				 }
-				 catch (Exception ex)
-				 {
-					logger.info(ex);
-					logger.error("Failed!", ex);
+		 }
+		 catch (Exception ex)
+		 {
+			logger.info(ex);
+			logger.error("Failed!", ex);
 
-				 }
+		 }
 		  
 
 	  }
@@ -1225,7 +1226,6 @@ public void setSOLRMetadata()
 	 adminRequest.setAction(CoreAdminAction.RELOAD);
 
 	 server = new HttpSolrServer ("http://localhost:8983/solr");
-	 
 	 metadoc = new SolrInputDocument();
 	 
 	 metadoc.addField("pmid", selectedpub.getPmid());
@@ -1253,10 +1253,11 @@ public void setSOLRMetadata()
  	  }
 
 	  
-		 for(String currstring: filesanddata)
-		 {
-		  metadoc.addField("pfileinfo",currstring);
-		 }
+	  for(String currstring: filesanddata)
+	  {
+		 metadoc.addField("pfileinfo",currstring);
+	  }
+		
 		 metadoc.addField("lruid", userId);
  	  
 }
@@ -1338,8 +1339,7 @@ public void setSOLRMetadata()
 			sfigure = sfigure.replace(",filefigure:", "");
 			spanel = spanel.replace(",filepanel:", "");
 			
-			
-			
+
 			String fileloc = PropsUtil.get("data_store2") + pmid + "/";
 			FileStorer currfile = new FileStorer();
 			currfile.setDescription(sdescription);
@@ -1351,13 +1351,11 @@ public void setSOLRMetadata()
 			currfile.setFilelocation(fileloc);
 			currfile.setLocalfilestore(fileloc);
 			
-			
 			if(!currfile.getFilename().equals(pmid + ".zip"))
 			{
 			currlist.getPubfiles().add(currfile);
 			}
-			
-			
+
 			solrindex++;
 			
 		}
