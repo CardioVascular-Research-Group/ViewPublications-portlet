@@ -495,18 +495,34 @@ public class ViewPublications implements Serializable{
 	    	
 	    }
 	
-	  public void moveStep(int nextstep)
+public void moveStep(int nextstep)
    {
+	int previousstep = step;
+	boolean backbutton = false;
 		 if(nextstep > 5)
 		 {
 			 step = nextstep;
 		 }
 
+		 
+		 if(nextstep<previousstep)
+		 {
+			 backbutton = true;
+			 step = nextstep;
+		 }
+	
+			 
+		 
 		  switch(step)
 		  {
 		  
 		  case 1:
-			  if(selectedpub != null)
+			  
+			  if(backbutton)
+			  {
+				  step = 1;
+			  }
+			  else if(selectedpub != null)
 			   {
 				   step = 2;
 				   fchooser.setPmid(selectedpub.getPmid());
@@ -520,21 +536,25 @@ public class ViewPublications implements Serializable{
 			   }
 			  break;
 		  case 2:
-			  step = 3;
+			  if(backbutton)
+			  {
+				 step = 2; 
+			  }
+			  else
+			  {
+				 step = 3;
+			  }
 			  break;
 		  case 3:
 			  validateDesc();
 				
-			   
 			   if(confirmed==true)
 			   {
 				  
 				   combineFiles();
-
 				   zipTheFolder();
-				   configDisplay ();
+				   configDisplay();
 				   draftPointSave3();
-				   
 				   step = 4;  
 				   
 			   }
@@ -552,21 +572,17 @@ public class ViewPublications implements Serializable{
 			  
 		  case 6:
 			
-				  combineFiles();
+			  combineFiles();
 			  draftPointSave1();
-			
 			  Clean();
-			 
 			  step = 1;
 			  break;
+			  
 		  case 7:
 			
 			  combineFiles();
 			  draftPointSave2();
-			
-			  
 			  Clean();
-			
 			  step = 1;
 			  break;
 			  
@@ -574,7 +590,6 @@ public class ViewPublications implements Serializable{
 		  default: step = 1;
           break;
 		  }
-
 
 			   try{
 					LiferayFacesContext portletFacesContext = LiferayFacesContext.getInstance();
@@ -585,7 +600,7 @@ public class ViewPublications implements Serializable{
 				{
 					logger.info(ex);
 				}
-			}
+	}
 	  
 	  public void configDisplay ()
 	   {
@@ -625,10 +640,9 @@ public class ViewPublications implements Serializable{
 	  
 	    	try{
 	    		
-	    		zip.setPmid(this.selectedpub.getPmid());
-		    	zip.Zipfiles(currlocation, zipfilelocation); 
-		    	
-	    
+	    			zip.setPmid(this.selectedpub.getPmid());
+	    			zip.Zipfiles(currlocation, zipfilelocation); 
+
 		    	}
 		    	catch (Exception ex)
 		    	{
@@ -1148,6 +1162,7 @@ public void getUserEntries()
 				}
 			
 				int counter = 0;
+	
 				
 				for(String currstring: currlist.getFauthors())
 				{
@@ -1245,6 +1260,7 @@ public void setSOLRMetadata()
   	 metadoc.addField("epubyear", selectedpub.getEpubyear());
   	 metadoc.addField("author_fullname_list", selectedpub.getAuthorfull());
      metadoc.addField("ptitle", selectedpub.getTitle() );  
+
 	   
  	  for(int i=0; i<selectedpub.getFauthors().size(); i++) 
  	  {
@@ -1258,7 +1274,7 @@ public void setSOLRMetadata()
 		 metadoc.addField("pfileinfo",currstring);
 	  }
 		
-		 metadoc.addField("lruid", userId);
+		 metadoc.addField("lruid", Long.toString(LiferayFacesContext.getInstance().getUser().getUserId()));
  	  
 }
 
@@ -1273,8 +1289,7 @@ public void setSOLRMetadata()
 
 	    	for(File currfile: folder.listFiles())
 	    	{
-	    		
-	           String absolutePath = currfile.getAbsolutePath();
+	            String absolutePath = currfile.getAbsolutePath();
 	    		FileStorer currfilestore = new FileStorer();
 	    		currfilestore.setFilename(currfile.getName());
 	    		currfilestore.setFilelocation(currlocation);
