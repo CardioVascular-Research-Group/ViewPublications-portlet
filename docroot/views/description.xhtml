@@ -13,7 +13,6 @@
 		<h:outputText value="Please enter descriptive information about each file uploaded." /> <br/>
 		<h:outputText value="If the file does not correspond to a Figure or Panel, you must enter a description." /> 
 		<br/><br/>
-		
 		<h:outputText value="For each uploaded file:" /> <br/>
 		<h:outputText value="-If the data file you have uploaded corresponds to a single figure, please enter the figure number and panel label(s) in the corresonding fields below." /> <br/>
 		<h:outputText value="-If the data file you have uploaded corresponds to more than one figure, please enter the figure number and panel label(s) of the first figure in the corresponding fields below, and enter the additonal figures and panel labels in the corresponding description field." /> <br/>
@@ -70,7 +69,7 @@
 		        </p:column> 
 	  		 <f:facet name="footer">  
 		        <p:commandButton value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages"/><br/>
-				
+				<h:outputText value="Click to save your progess and store all data entered." />
 		      </f:facet>  
 	     
 	    </p:dataTable>  
@@ -127,7 +126,7 @@
 		        </p:column> 
 		       <f:facet name="footer">  
 		        <p:commandButton rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages2"/><br/>
-				
+				<h:outputText rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Click to save your progess and store all data entered." />
 		       </f:facet>  
 
 	

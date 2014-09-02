@@ -277,26 +277,26 @@ public class ViewPublications implements Serializable{
       
 	   public  String getUsertitle()
 	   {
-      	return usertitle;
+		   	return usertitle;
 	   }
       public  String getUserpmid()
       {
-      	return userpmid;
+      		return userpmid;
       }
       
       public  void setUserauthor(String u)
       {
-      	userauthor = u;
+      		userauthor = u;
       }
       
       public  void setUsertitle(String u)
       {
-      	usertitle = u;
+      		usertitle = u;
       }
       
       public  void setUserpmid(String u)
       {
-      	userpmid = u;
+      		userpmid = u;
       }
 	   
       public String setButtonvalue ()
@@ -870,11 +870,11 @@ public void handleFileSavePoint1(ActionEvent event) {
 	
 	if(step ==2)
 	{
-	draftPointSave1();
+		draftPointSave1();
 	}
 	else
 	{
-	draftPointSave2();
+		draftPointSave2();
 	}
 
 	
@@ -955,17 +955,15 @@ public void draftPointSave1()
 	setSOLRMetadata();
 	if(fchooser.getNewfiles().isEmpty())
 	{
-	metadoc.addField("completion", stat);
+		metadoc.addField("completion", stat);
 	}
 	else
 	{
-	metadoc.addField("completion", "false");
+		metadoc.addField("completion", "false");
 	}
-	metadoc.addField("draftpoint", "1" );
-
-    	
-	server.add(metadoc);
-	server.commit();
+		metadoc.addField("draftpoint", "1" );	
+		server.add(metadoc);
+		server.commit();
 	}
 	catch(Exception ex)
 	{
@@ -997,11 +995,11 @@ public void draftPointSave2()
 	setSOLRMetadata();
 	if(fchooser.getNewfiles().isEmpty())
 	{
-	metadoc.addField("completion", stat);
+		metadoc.addField("completion", stat);
 	}
 	else
 	{
-	metadoc.addField("completion", "false");
+		metadoc.addField("completion", "false");
 	}
 
 	
@@ -1095,31 +1093,31 @@ public void getUserEntries()
 				}
 				if(doc.getFieldValue("journalday")!=null)
 				{
-				currlist.setJournalday(doc.getFieldValue("journalday").toString());
+					currlist.setJournalday(doc.getFieldValue("journalday").toString());
 				}
 				if(doc.getFieldValue("journalmonth")!=null)
 				{
-				currlist.setJournalmonth(doc.getFieldValue("journalmonth").toString());
+					currlist.setJournalmonth(doc.getFieldValue("journalmonth").toString());
 				}
 				if(doc.getFieldValue("journalpage")!=null)
 				{
-				currlist.setJournalstartpg(doc.getFieldValue("journalpage").toString());
+					currlist.setJournalstartpg(doc.getFieldValue("journalpage").toString());
 				}
 				if(doc.getFieldValue("journalissue")!=null)
 				{
-				currlist.setJournalissue(doc.getFieldValue("journalissue").toString());
+					currlist.setJournalissue(doc.getFieldValue("journalissue").toString());
 				}
 				if(doc.getFieldValue("journalvolume")!=null)
 				{
-				currlist.setJournalvolume(doc.getFieldValue("journalvolume").toString());
+					currlist.setJournalvolume(doc.getFieldValue("journalvolume").toString());
 				}
 				if(doc.getFieldValue("publicationdate_year")!=null)
 				{
-				currlist.setYear(doc.getFieldValue("publicationdate_year").toString());
+					currlist.setYear(doc.getFieldValue("publicationdate_year").toString());
 				}
 				if(doc.getFieldValue("doi") != null)
 				{
-				currlist.setDoi(doc.getFieldValue("doi").toString());
+					currlist.setDoi(doc.getFieldValue("doi").toString());
 				}
 				
 				if(doc.getFieldValues("pfileinfo") != null)
@@ -1135,25 +1133,25 @@ public void getUserEntries()
 				}
 				if(doc.getFieldValue("author_firstname") != null)
 				{
-				currlist.setFauthors((List<String>) doc.getFieldValue("author_firstname"));
+					currlist.setFauthors((List<String>) doc.getFieldValue("author_firstname"));
 				}
 				if(doc.getFieldValue("author_lastname") != null)
 				{
-				currlist.setLauthors((List<String>) doc.getFieldValue("author_lastname"));
+					currlist.setLauthors((List<String>) doc.getFieldValue("author_lastname"));
 				}
 				
 				if(doc.getFieldValue("epubmonth") != null)
 				{
-				currlist.setEpubmonth(doc.getFieldValue("epubmonth").toString());
+					currlist.setEpubmonth(doc.getFieldValue("epubmonth").toString());
 				}
 				
 				if(doc.getFieldValue("epubyear") != null)
 				{
-				currlist.setEpubyear(doc.getFieldValue("epubyear").toString());
+					currlist.setEpubyear(doc.getFieldValue("epubyear").toString());
 				}
 				if(doc.getFieldValue("epubday") !=null)
 				{
-				currlist.setEpubday(doc.getFieldValue("epubday").toString());
+					currlist.setEpubday(doc.getFieldValue("epubday").toString());
 				}
 				if(doc.getFieldValue("author_fullname_list") !=null)
 				{
