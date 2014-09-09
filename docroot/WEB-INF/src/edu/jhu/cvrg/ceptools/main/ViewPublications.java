@@ -579,7 +579,7 @@ public void moveStep(int nextstep)
 			  break;
 			  
 		  case 7:
-			
+			  validateDesc();
 			  combineFiles();
 			  draftPointSave2();
 			  Clean();
@@ -980,7 +980,7 @@ public void draftPointSave2()
 	setSOLRVariablesCombined();
 	String stat;
 	
-	if(selectedpub.getCompletion() == true)
+	if(selectedpub.getCompletion() == true && confirmed == true)
 	{
 		stat = "true";
 	}

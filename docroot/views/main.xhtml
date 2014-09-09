@@ -11,27 +11,29 @@
 
 	<h:form id="viewmypubs" >  
 		<h:outputText value="Select a publication record below to add files and/or edit descriptions. You may need to refresh to see new publication records."/> <br/>
-		<br/><p:commandButton style="font-size-adjust: .7; padding: 3px" value="Refresh" actionListener="#{viewPublications.handleRefresh1}"  update="msg2,:viewmypubs:vmp" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+		<br/><p:commandButton value="Refresh" actionListener="#{viewPublications.handleRefresh1}"  update="msg2,:viewmypubs:vmp" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
 		<br/><br/><h:outputText value="#{viewPublications.pubselecterr}" style="color:red"></h:outputText>
 		<p:growl id="msg2" life="10000" showDetail="true" sticky="true"/>  
 	 		
 	 		<p:dataTable id="vmp" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.publications}" type="ordered" selection="#{viewPublications.selectedpub}" selectionMode="single" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
 	
-	                 <p:column headerText="Publication" > 
+	 				<p:column headerText="Visibility"> 
+		
+					  #{sfiles.comp}
+					  </p:column>
+	
+	                 <p:column headerText="Publication" style="width:900px;"> 
 					 #{sfiles.title} <br/>
 					 #{sfiles.first5authors} <br/>
 					 #{sfiles.pmid}<br/>
 					  </p:column>
 					  
-					  <p:column headerText="Visibility"> 
-	
-					  #{sfiles.comp}
-					  </p:column>
+					 
 					  
 	
 			</p:dataTable >
 			<br/>
-			<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Edit this Publication Record" action="#{viewPublications.moveStep(2)}" update="@form" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+			<p:commandButton value="Edit this Publication Record" action="#{viewPublications.moveStep(2)}" update="@form" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
 			
 	
 	

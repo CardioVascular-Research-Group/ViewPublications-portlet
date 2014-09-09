@@ -50,7 +50,7 @@
 					 </p:column>
 					  
 					 <p:column headerText="Download" >
-					 	<p:commandButton  style="font-size-adjust: .7; padding: 3px" id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
+					 	<p:commandButton  id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
 					 </p:column>
 	
 			</p:dataTable >
@@ -86,9 +86,9 @@
 	   
 	   		<p:fileUpload fileUploadListener="#{viewPublications.handleFileSave}" mode="advanced" style="width: 100%; height: 200px; display: block; " dragDropSupport="true" update="messages,:uploader:newf" multiple="true" fileLimit="5" sizeLimit="1000000000" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar|jpg|jpeg|png|tiff|tif|jif|jfif|jp2|jpx|j2k|j2c)$/" /> 
 
-			<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Next: Add or Edit File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/> <br/>
-			<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Back: View All My Publications" action="#{viewPublications.moveStep(1)}"/><br/><br/>
-	  		<p:commandButton style="font-size-adjust: .7; padding: 3px" value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+			<p:commandButton  value="Next: Add or Edit File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/> <br/><br/>
+			<p:commandButton  value="Back: View My Publications" action="#{viewPublications.moveStep(1)}"/><br/><br/>
+	  		<p:commandButton  value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
 			<h:outputText value="If you do not wish to add file descriptions at this time, please click to save your progress. You will return to the View My Publications main page. " /><br/><br/>
 	  		
 	  		
