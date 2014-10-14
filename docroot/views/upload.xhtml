@@ -7,92 +7,85 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-	<h:form id="uploader" enctype="multipart/form-data">
-		
-			<h:outputText value="Please upload additional files you would like to associate with this publication record. "/><br/>
-		<h:outputText value="If you do not wish to upload any new files, proceed to the next step."/>
-		<br/><br/>		   					
-		<h:outputText style="font-weight: bold" value="#{viewPublications.selectedpub.title}"  id="selectedpubconfirmtt3"/>. <br/>
-		<h:outputText value="#{viewPublications.selectedpub.fullnames}"  id="selectedpubconfirmff3"/>. 
-		<h:outputText value="#{viewPublications.selectedpub.journalname}"  id="selectedpubconfirmjn3"/>.<h:outputText value="&#160;" />
-		<h:outputText value="#{viewPublications.selectedpub.journalyear}"  id="selectedpubconfirmjy3"/><h:outputText value="&#160;" />
-		<h:outputText value="#{viewPublications.selectedpub.journalmonth}"  id="selectedpubconfirmjm3"/><h:outputText value="&#160;" />
-		<h:outputText value="#{viewPublications.selectedpub.journalday}"  id="selectedpubconfirmjd3"/>;<h:outputText value="&#160;" />
-	   	<h:outputText value="#{viewPublications.selectedpub.epubsum2}"  id="epubsum11"/><h:outputText value="&#160;" />
-		<h:outputText value="#{viewPublications.selectedpub.doi}"  id="selectedpubdoi"/><h:outputText value="&#160;" /><h:outputText value="&#160;" />
-		<h:outputText value="#{viewPublications.selectedpub.epubsum}"  id="epubsum"/><h:outputText value="&#160;" />
-	 	<br/><br/>
-		<h:outputText style="font-weight: bold" value="Abstract:  "/> 
-		<h:outputText value="#{viewPublications.selectedpub.abstract}" id="selectedpubconfirma"/> <br/>  
-					
-		<br/>PMID: <h:outputText value="#{viewPublications.selectedpub.pmid}"  id="pmid1"/><br/><br/><br/>
-	  
-		
+<h:form id="uploader" enctype="multipart/form-data">
+	<p>Please upload additional files you would like to associate with this publication record.<br/>
+	If you do not wish to upload any new files, proceed to the next step.</p>
+	<p><strong>#{viewPublications.selectedpub.title}.</strong><br/>
+	#{viewPublications.selectedpub.fullnames}. #{viewPublications.selectedpub.journalname}. #{viewPublications.selectedpub.journalyear} #{viewPublications.selectedpub.journalmonth} 
+	#{viewPublications.selectedpub.journalday}; #{viewPublications.selectedpub.epubsum2} #{viewPublications.selectedpub.doi} #{viewPublications.selectedpub.epubsum}</p>
+	<p><strong>Abstract:</strong> #{viewPublications.selectedpub.abstract}</p>  
+	<p>PMID: #{viewPublications.selectedpub.pmid}</p>
 	
-		      <p:dataTable id="ft" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.selectedpub.pubfiles}" type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
-	 			
-	 			 	 <f:facet name="header">Currently Stored Files</f:facet>
-	                 
-	                 <p:column headerText="Filename" > 
-						 #{sfiles.filename}
-					 </p:column>  
-					  
-					 <p:column headerText="File Size">
-						 #{sfiles.filesize} KB
-					 </p:column>
-					  
-					 <p:column headerText="Figure and Panel">
-							<h:outputText value="#{sfiles.figpandisplay}"/>
-					 </p:column>
-					  
-					 <p:column headerText="Description">
-					  #{sfiles.description}
-					 </p:column>
-					  
-					 <p:column headerText="Download" >
-					 	<p:commandButton  id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
-					 </p:column>
-	
-			</p:dataTable >
-			<br/><br/><br/>
-	
-			<p:dataTable id="newf" var="nfiles" rowKey="#{nfiles.index}" value="#{viewPublications.fchooser.newrefinedfiles}" emptyMessage="No new records uploaded." type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
-	    	
-	    			<f:facet name="header">New Files</f:facet>
-	    	
-	                 <p:column headerText="File Name" > 
-					 #{nfiles.filename}
-					  </p:column>  
-					  
-					 <p:column headerText="File Size" > 
-					 #{nfiles.filesize} KB
-					 </p:column> 
-					   
-			</p:dataTable>
-			
-		  
-	   		<br/><br/>
-	   		<p:growl id="messages" life="10000" showDetail="true" sticky="true"/>  
-	   		<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>	
-	   		
-	   	<h:outputText value="To upload files to this record:" style="font-weight: bold"/><br/>
-	    <h:outputText value="Choose:" style="font-weight: bold"/> <h:outputText value=" Select data files for upload. You may select multiple files by pressing the Ctrl button. If you receive a message about an invalid file type, you may continue to upload additional files by pressing the Choose button again." /><br/>
-	    <h:outputText value="Upload:" style="font-weight: bold"/>  <h:outputText value=" Upload all selected files simultaneously. You may upload individual files by selecting the up arrow icon to the right of the filename in the list." /><br/>
-	    <h:outputText value="Cancel:"  style="font-weight: bold"/>  <h:outputText value=" Cancel all uploads in progress after uploading to the site has begun. You may cancel individual files uploads in progress by selecting the cancel button (circle-slash symbol) to the right of the file name in the list." /><br/>
-	    <h:outputText value="You may also drag and drop files into the space below to add them to the upload queue."/> <br/>
-	   	<h:outputText value="Files may not be deleted from the CEP Tools repository after they are uploaded." style="font-weight: bold"/><br/>
-	   	<h:outputText value="Acceptable File Types: "  style="font-weight: bold"/>
-	   	<h:outputText value=".doc, .docx, .xls, .xlsx, .pdf, .abf, .xml, .pgf, .pul, .amp, .dat, .txt, .zip, .tar, .jpg, .jpeg, .png, .tiff, .tif, .jif, .jfif, .jp2, .jpx, .j2k, .j2c" /><br/>
-	   
-	   		<p:fileUpload fileUploadListener="#{viewPublications.handleFileSave}" mode="advanced" style="width: 100%; height: 200px; display: block; " dragDropSupport="true" update="messages,:uploader:newf" multiple="true" fileLimit="5" sizeLimit="1000000000" allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar|jpg|jpeg|png|tiff|tif|jif|jfif|jp2|jpx|j2k|j2c)$/" /> 
 
-			<p:commandButton  value="Next: Add or Edit File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/> <br/><br/>
-			<p:commandButton  value="Back: View My Publications" action="#{viewPublications.moveStep(1)}"/><br/><br/>
-	  		<p:commandButton  value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
-			<h:outputText value="If you do not wish to add file descriptions at this time, please click to save your progress. You will return to the View My Publications main page. " /><br/><br/>
-	  		
-	  		
-	<br/><br/><br/><br/><br/><br/><br/><br/>
-		</h:form> 
+	<p:dataTable id="ft" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.selectedpub.pubfiles}" type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+ 	
+ 	 	<f:facet name="header">Currently Stored Files</f:facet>     
+	    <p:column headerText="Filename" > 
+			#{sfiles.filename}
+		</p:column>  
+		  
+		<p:column headerText="File Size">
+			#{sfiles.filesize} KB
+		</p:column>
+		  
+		<p:column headerText="Figure and Panel">
+			<h:outputText value="#{sfiles.figpandisplay}"/>
+		</p:column>
+		  
+		<p:column headerText="Description">
+			#{sfiles.description}
+		</p:column>
+		  
+		<p:column headerText="Download" >
+			<p:commandButton  id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
+		</p:column>
+
+	</p:dataTable >
 	
+	<p:dataTable style="margin-top:15px; margin-bottom:15px;" id="newf" var="nfiles" rowKey="#{nfiles.index}" value="#{viewPublications.fchooser.newrefinedfiles}" emptyMessage="No new records uploaded." type="ordered" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+    	
+    	<f:facet name="header">New Files</f:facet>
+    	
+        <p:column headerText="File Name" > 
+			#{nfiles.filename}
+		</p:column>  
+				  
+		<p:column headerText="File Size" > 
+			#{nfiles.filesize} KB
+		</p:column> 
+				   
+	</p:dataTable>
+
+	<p:growl id="messages" life="10000" showDetail="true" sticky="true"/>  
+	<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>	
+   		
+   	<p><strong>To upload files to this record:</strong><br/>
+		<strong>Choose:</strong> Select data files for upload. You may select multiple files by pressing the Ctrl button. If you receive a message about an invalid file type, you may continue to upload additional files by pressing the Choose button again.<br/>
+		<strong>Upload:</strong> Upload all selected files simultaneously. You may upload individual files by selecting the up arrow icon to the right of the filename in the list. Once upload is complete, each file will appear under the Uploaded Files box below.<br/>
+		<strong>Cancel:</strong> Cancel all uploads in progress after uploading to the site has begun. You may cancel individual files uploads in progress by selecting the cancel button (circle-slash symbol) to the right of the file name in the list.<br/>
+		You may also drag and drop files into the space below to add them to the upload queue. <br/>
+		<strong>Files may not be deleted from the CEP Tools repository after they are uploaded.</strong><br/>
+		<strong>Acceptable File Types:</strong> .doc, .docx, .xls, .xlsx, .pdf, .abf, .xml, .pgf, .pul, .amp, .dat, .txt, .zip, .tar, .jpg, .jpeg, .png, .tiff, .tif, .jif, .jfif, .jp2, .jpx, .j2k, .j2c
+	</p>
+   	<p:fileUpload fileUploadListener="#{viewPublications.handleFileSave}" 
+   		mode="advanced" 
+   		style="margin-top:15px;" 
+   		dragDropSupport="true" 
+   		update="messages,:uploader:newf" 
+   		multiple="true" 
+   		allowTypes="/(\.|\/)(doc|docx|xls|xlsx|pdf|abf|xml|pgf|pul|amp|dat|txt|zip|tar|jpg|jpeg|png|tiff|tif|jif|jfif|jp2|jpx|j2k|j2c)$/" /> 
+
+	<p style="margin-top:15px;">
+		<p:commandButton  value="Next: Add or Edit File Descriptions" action="#{viewPublications.moveStep(3)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+	</p>
+	<p>
+		<p:commandButton  value="Back: View My Publications" action="#{viewPublications.moveStep(1)}"/>
+ 	</p>
+ 	<p>
+ 		<p:commandButton  value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(6)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
+	</p>
+	<p>If you do not wish to add file descriptions at this time, please click to save your progress. You will return to the View My Publications main page.</p>
+  		  		
+</h:form> 
+
 </f:view>
