@@ -7,59 +7,47 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-
- 
-	<h:form id="finalcomplete" >  
-	<h:outputText style="font-weight: bold; color: red;" value="Your publication record is now accessible to other users."/><br/><br/>
-
-
-			<h:outputText style="font-weight: bold" value="#{viewPublications.selectedpub.title}"  id="selectedpubconfirmtt4"/> <br/>
-			<h:outputText value="#{viewPublications.selectedpub.fullnames}"  id="selectedpubconfirmff4"/>. <br/>
-			<h:outputText value="#{viewPublications.selectedpub.journalname}"  id="selectedpubconfirmjn4"/>.<h:outputText value="&#160;" />
-			<h:outputText value="#{viewPublications.selectedpub.journalyear}"  id="selectedpubconfirmjy4"/><h:outputText value="&#160;" />
-			<h:outputText value="#{viewPublications.selectedpub.journalmonth}"  id="selectedpubconfirmjm4"/><h:outputText value="&#160;" />
-			<h:outputText value="#{viewPublications.selectedpub.journalday}"  id="selectedpubconfirmjd4"/>;<h:outputText value="&#160;" />
-		  	 <h:outputText value="#{viewPublications.selectedpub.epubsum2}"  id="epubsum15"/><h:outputText value="&#160;" />
-			<br/>
-			<h:outputText value="#{viewPublications.selectedpub.doi}"  id="selectedpubdoi"/><h:outputText value="&#160;" /><h:outputText value="&#160;" />
-			<h:outputText value="#{viewPublications.selectedpub.epubsum}"  id="epubsum"/><h:outputText value="&#160;" />
-		 	<br/><br/>
-			<h:outputText style="font-weight: bold" value="Abstract:  "/> 
-			<h:outputText value="#{viewPublications.selectedpub.abstract}" id="selectedpubconfirma"/> <br/>  
-						
-			<br/>PMID: <h:outputText value="#{viewPublications.selectedpub.pmid}"  id="pmid1"/> <br/>
-			<br/>
-		   	<p:commandButton  id="downloadziponly" value="Click to Download All Files (.zip)" action="#{viewPublications.downloadZipOnly()}" ajax="false"/>
-		 
-		 	<br/><br/>
-			
-		        <p:dataTable id="ft" var="sfiles" rowKey="#{sfiles.index}" emptyMessage="No new files added." value="#{viewPublications.selectedpub.pubfiles}" type="ordered" selection="#{viewPublications.selecteddownloadfile}" selectionMode="single" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
+<h:form id="finalcomplete" >  
+	<p style="font-weight: bold; color: red;">Your publication record is now accessible to other users.</p>
+	<p>
+		<strong>#{viewPublications.selectedpub.title}</strong><br/>
+		#{viewPublications.selectedpub.fullnames}.<br/>
+		#{viewPublications.selectedpub.journalname}. 
+		#{viewPublications.selectedpub.journalyear} #{viewPublications.selectedpub.journalmonth} #{viewPublications.selectedpub.journalday}; #{viewPublications.selectedpub.epubsum2}<br/>
+		#{viewPublications.selectedpub.doi} #{viewPublications.selectedpub.epubsum}
+	</p>
+	<p><strong>Abstract:</strong> #{viewPublications.selectedpub.abstract}</p>	
+	<p>PMID: #{viewPublications.selectedpub.pmid}</p>
+	<p>
+		<p:commandButton  id="downloadziponly" value="Click to Download All Files (.zip)" action="#{viewPublications.downloadZipOnly()}" ajax="false"/>
+	</p>
+	<p:dataTable id="ft" var="sfiles" rowKey="#{sfiles.index}" emptyMessage="No new files added." value="#{viewPublications.selectedpub.pubfiles}" type="ordered" selection="#{viewPublications.selecteddownloadfile}" selectionMode="single" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
 		
-		            <p:column headerText="Filename" > 
-					  #{sfiles.filename}
-					</p:column>  
-						  
-					<p:column headerText="File Size">
-					  #{sfiles.filesize} KB
-					</p:column>
-						  
-					<p:column headerText="Figure and Panel">
-						<h:outputText value="#{sfiles.figpandisplay}"/>
-					</p:column>
-						  
-					<p:column headerText="Description">
-					  #{sfiles.description}
-					</p:column>
-						  
-					 <p:column headerText="Download" >
-		 				<p:commandButton id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
-		 			</p:column>
+	    <p:column headerText="Filename" > 
+			#{sfiles.filename}
+		</p:column>  
+			  
+		<p:column headerText="File Size">
+			#{sfiles.filesize} KB
+		</p:column>
+			  
+		<p:column headerText="Figure and Panel">
+			<h:outputText value="#{sfiles.figpandisplay}"/>
+		</p:column>
+			  
+		<p:column headerText="Description">
+			#{sfiles.description}
+		</p:column>
+			  
+		<p:column headerText="Download" >
+			<p:commandButton id="downloadResults" value="Download this File" action="#{viewPublications.downloadRawFiles(sfiles)}" ajax="false"/>
+		</p:column>
+	
+	</p:dataTable >
+	<p style="margin-top:15px;">	
+		<p:commandButton  value="Return to View My Publications" id="startover" action="#{viewPublications.moveStep(5)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);" /> <br/>
+	</p>
 
-		</p:dataTable >
-		
-		<br/>
-		
-	<p:commandButton  value="Return to View My Publications" id="startover" action="#{viewPublications.moveStep(5)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);" /> <br/>
-	</h:form>
+</h:form>
 		
 </f:view>

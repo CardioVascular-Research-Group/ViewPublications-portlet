@@ -8,143 +8,134 @@
 >
 
 	<h:form id="describefileafterupload2" >  
-	
-	
-		<h:outputText value="Please enter descriptive information about each file uploaded." /> <br/>
-		<h:outputText value="If the file does not correspond to a Figure or Panel, you must enter a description." /> 
-		<br/><br/>
-		<h:outputText value="For each uploaded file:" /> <br/>
-		<h:outputText value="-If the data file you have uploaded corresponds to a single figure, please enter the figure number and panel label(s) in the corresonding fields below." /> <br/>
-		<h:outputText value="-If the data file you have uploaded corresponds to more than one figure, please enter the figure number and panel label(s) of the first figure in the corresponding fields below, and enter the additonal figures and panel labels in the corresponding description field." /> <br/>
-		<h:outputText value="-For files containing data that are referenced in the text or as &quot;data not shown &quot;, please use the description field to indicate the page number or section title corresponding to the in-text reference." /> <br/>  
-	    <h:outputText value="-Select the Save Progress button to save all figure, panel, and description data entered ."/>
-	
+		<p>Please enter descriptive information about each file uploaded. If the file does not correspond to a Figure or Panel, you must enter a description.</p>
+		<p>For each uploaded file:</p>
+			<ul>
+				<li>If the data file you have uploaded corresponds to a single figure, please enter the figure number and panel label(s) in the corresponding fields below.</li>
+				<li>If the data file you have uploaded corresponds to more than one figure, please enter the figure number and panel label(s) of the first figure in the corresponding fields below, and enter the additional figures and panel labels in the corresponding description field.</li>				
+				<li>For files containing data that are referenced in the text or as "data not shown", please use the description field to indicate the page number or section title corresponding to the in-text reference.</li>
+				<li>Select the Save Progress button to save all figure, panel, and description data entered.</li>
+			</ul>	
 		<p:growl id="messages" showDetail="true"/>  
+	 	<p:dataTable  var="mfiles" rowKey="#{mfiles.index}" value="#{viewPublications.selectedpub.pubfiles}" id="editList" editable="true" editMode="cell" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
+  
+	        <f:facet name="header">  
+	            Currently Stored Files
+	        </f:facet>  
 	  
-	    <p:dataTable  var="mfiles" rowKey="#{mfiles.index}" value="#{viewPublications.selectedpub.pubfiles}" id="editList" editable="true" editMode="cell" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
+	        <p:column headerText="Filename" style="width:10%">  
+	                   #{mfiles.filename} 
+	        </p:column>  
 	  
-		        <f:facet name="header">  
-		            Currently Stored Files
-		        </f:facet>  
-		  
-		        <p:column headerText="Filename" style="width:10%">  
-		                   #{mfiles.filename} 
-		        </p:column>  
-		  
-		        <p:column headerText="Figure Number" style="width:10%">  
-		            <p:cellEditor>  
-		                <f:facet name="output">  
-		                    <h:outputText value="#{mfiles.figure}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{mfiles.figure}"  style="width:100%" label="Figure"/>  
-		                </f:facet>  
-		            </p:cellEditor>  
-		        </p:column>  
-		  
-		        <p:column headerText="Panel Number" style="width:10%">  
-		            <p:cellEditor>  
-		                <f:facet name="output">  
-		                    <h:outputText value="#{mfiles.panel}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{mfiles.panel}"  style="width:100%" label="Panel"/>  
-		                </f:facet>  
-		            </p:cellEditor>  
-		        </p:column>  
-		  
-		  
-		        <p:column headerText="Description" style="width:35%">  
-		            <p:cellEditor>  
-		                  <f:facet name="output">  
-		                    <h:outputText value="#{mfiles.description}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{mfiles.description}"  style="width:100%" label="Description"/>  
-		                </f:facet> 
-		            </p:cellEditor>  
-		        </p:column>  
-		        <p:column headerText="Error Messages" style="width:35%; background-color:#BFBFCB" >  
-		           <h:outputText value="#{mfiles.message}" style="color: red"/>  
-		        </p:column> 
-	  		 <f:facet name="footer">  
+	        <p:column headerText="Figure Number" style="width:10%">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{mfiles.figure}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{mfiles.figure}"  style="width:100%" label="Figure"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	        </p:column>  
+	  
+	        <p:column headerText="Panel Number" style="width:10%">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{mfiles.panel}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{mfiles.panel}"  style="width:100%" label="Panel"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	        </p:column>  
+	  	  
+	        <p:column headerText="Description" style="width:35%">  
+	            <p:cellEditor>  
+	                  <f:facet name="output">  
+	                    <h:outputText value="#{mfiles.description}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{mfiles.description}"  style="width:100%" label="Description"/>  
+	                </f:facet> 
+	            </p:cellEditor>  
+	        </p:column>  
+	        
+	        <p:column headerText="Error Messages" style="width:35%; background-color:#BFBFCB" >  
+	           <h:outputText value="#{mfiles.message}" style="color: red"/>  
+	        </p:column> 
+  		 	<f:facet name="footer">  
 		        <p:commandButton value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages"/><br/>
-				<h:outputText value="Click to save your progess and store all data entered." />
-		      </f:facet>  
-	     
+				<h:outputText value="Click to save your progress and store all data entered." />
+	      	</f:facet>  
+     
 	    </p:dataTable>  
-	    <br/><br/>
 	    
 	 	<p:dataTable emptyMessage="No new files added." var="nfiles" rowKey="#{nfiles.index}" value="#{viewPublications.fchooser.newrefinedfiles}" id="editList2" editable="true" editMode="cell" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >  
 	  
-		        <f:facet name="header">  
-		          Newly Added Files
-		        </f:facet>  
-		  
-		
-		        <p:column headerText="Filename" style="width:10%">  
-		           #{nfiles.filename} 
-		        </p:column>  
-		  
-		
-		        <p:column headerText="Figure Number" style="width:10%">  
-		            <p:cellEditor>  
-		                <f:facet name="output">  
-		                    <h:outputText value="#{nfiles.figure}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{nfiles.figure}"  style="width:100%" label="Figure"/>  
-		                </f:facet>  
-		            </p:cellEditor>  
-		        </p:column>  
-		  
-		        <p:column headerText="Panel Number" style="width:10%">  
-		            <p:cellEditor>  
-		                <f:facet name="output">  
-		                    <h:outputText value="#{nfiles.panel}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{nfiles.panel}"  style="width:100%" label="Panel"/>  
-		                </f:facet>  
-		            </p:cellEditor>  
-		        </p:column>  
-		  
-		  
-		        <p:column headerText="Description" style="width:35%" >  
-		            <p:cellEditor>  
-		                  <f:facet name="output">  
-		                    <h:outputText value="#{nfiles.description}" />  
-		                </f:facet>  
-		                <f:facet name="input">  
-		                    <p:inputText value="#{nfiles.description}"  style="width:100%" label="Description" required="true" requiredMessage="You must enter a description when there is no figure and no panel"/>  
-		                </f:facet> 
-		            </p:cellEditor>  
-		        </p:column>  
-		        <p:column id="descriptionerrors" headerText="Error Messages" style="width:35%; background-color:#BFBFCB">  
-		  
-		                    <h:outputText value="#{nfiles.message}" style="color: red"/>  
-		        </p:column> 
-		       <f:facet name="footer">  
-		        <p:commandButton rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages2"/><br/>
-				<h:outputText rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Click to save your progess and store all data entered." />
-		       </f:facet>  
+	       <f:facet name="header">  
+	          Newly Added Files
+	       </f:facet>  
+	  
+	       <p:column headerText="Filename" style="width:10%">  
+	           #{nfiles.filename} 
+	       </p:column>  
+	  
+	       <p:column headerText="Figure Number" style="width:10%">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{nfiles.figure}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{nfiles.figure}"  style="width:100%" label="Figure"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	       </p:column>  
+	  
+	       <p:column headerText="Panel Number" style="width:10%">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{nfiles.panel}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{nfiles.panel}"  style="width:100%" label="Panel"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	       </p:column>  
+	  
+	       <p:column headerText="Description" style="width:35%" >  
+	            <p:cellEditor>  
+	                  <f:facet name="output">  
+	                    <h:outputText value="#{nfiles.description}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{nfiles.description}"  style="width:100%" label="Description" required="true" requiredMessage="You must enter a description when there is no figure and no panel"/>  
+	                </f:facet> 
+	            </p:cellEditor>  
+	       </p:column>  
+	       <p:column id="descriptionerrors" headerText="Error Messages" style="width:35%; background-color:#BFBFCB">  
+	  
+	                    <h:outputText value="#{nfiles.message}" style="color: red"/>  
+	       </p:column> 
+	       <f:facet name="footer">  
+	        <p:commandButton rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages2"/><br/>
+			<h:outputText rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Click to save your progress and store all data entered." />
+	       </f:facet>  
 
-	
 	    </p:dataTable>  
 	  
-		
-		<br/>
 		<p:growl id="messages2" life="10000" showDetail="true" sticky="true"/>		
-		<br/>
-		<p:commandButton  value="Save Progress and Set Publication Record to Visible" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
-		 <h:outputText value="Selecting this button will update the record on CEP Tools and make it visible to all users. You may return to this record to add new files and/or modify descriptions in the future by selecting View My Publications in the top menu." style="color:red"/><br/><br/><br/>
-	
-		<p:commandButton value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(7)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
-		<h:outputText value="Click to save your progess, store this publication record to your account, and return to the View My Publications main page." /><br/><br/>
-		
-		<p:commandButton  value="Back: Upload More Files" action="#{viewPublications.moveStep(2)}"/><br/>
+		<p style="margin-top:15px;">
+			<p:commandButton  value="Save Progress and Set Publication Record to Visible" id="movetstep" action="#{viewPublications.moveStep(4)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+			<h:outputText value="Selecting this button will update the record on CEP Tools and make it visible to all users. You may return to this record to add new files and/or modify descriptions in the future by selecting View My Publications in the top menu." style="color:red"/>
+		</p>
+		<p>
+			<p:commandButton value="Save Progress and Return to View My Publications Main Page" action="#{viewPublications.moveStep(7)}" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/><br/>
+			<h:outputText value="Click to save your progress, store this publication record to your account, and return to the View My Publications main page." />
+		</p>
+		<p>
+			<p:commandButton  value="Back: Upload More Files" action="#{viewPublications.moveStep(2)}"/>
+		</p>
 		
 	</h:form>
-
 
 </f:view>
