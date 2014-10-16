@@ -64,8 +64,7 @@
 	           <h:outputText value="#{mfiles.message}" style="color: red"/>  
 	        </p:column> 
   		 	<f:facet name="footer">  
-		        <p:commandButton value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages"/><br/>
-				<h:outputText value="Click to save your progress and store all data entered." />
+		        <p:commandButton value="Save Progress and Store All Data Entered" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages"/>
 	      	</f:facet>  
      
 	    </p:dataTable>  
@@ -117,8 +116,7 @@
 	                    <h:outputText value="#{nfiles.message}" style="color: red"/>  
 	       </p:column> 
 	       <f:facet name="footer">  
-	        <p:commandButton rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Save Progress" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages2"/><br/>
-			<h:outputText rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Click to save your progress and store all data entered." />
+	        <p:commandButton rendered="#{!empty viewPublications.fchooser.newrefinedfiles}" value="Save Progress and Store All Data Entered" actionListener="#{viewPublications.handleFileSavePoint1}" update=":describefileafterupload2:messages2"/>
 	       </f:facet>  
 
 	    </p:dataTable>  
