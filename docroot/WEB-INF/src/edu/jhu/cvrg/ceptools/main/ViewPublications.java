@@ -675,7 +675,7 @@ public void moveStep(int nextstep)
 			   
 			   else if(currfile.getFigure().length() < 1 && currfile.getPanel().length()<1 && currfile.getDescription().length()<1)
 			   {
-				   currfile.setMessage("You must enter a description if there is no Figure or Panel number entered.");
+				   currfile.setMessage("You must enter a description if there is no figure number entered.");
 				   verify= false;
 			   }
 			   else
@@ -704,7 +704,7 @@ public void moveStep(int nextstep)
 			   else if(currfile2.getFigure().length() < 1 && currfile2.getPanel().length()<1 && currfile2.getDescription().length()<1)
 			   {
 				  
-				   currfile2.setMessage("You must enter a description if there is no Figure or Panel number entered.");
+				   currfile2.setMessage("You must enter a description if there is no figure number entered.");
 				   
 				   verify= false;
 			   }

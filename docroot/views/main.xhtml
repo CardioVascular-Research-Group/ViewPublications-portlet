@@ -13,25 +13,19 @@
 		<p:commandButton value="Refresh" actionListener="#{viewPublications.handleRefresh1}"  update="msg2,:viewmypubs:vmp" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
 	</p>
 	<h:outputText rendered="#{viewPublications.pubselecterr ne ''}" value="#{viewPublications.pubselecterr}" style="color:red; font-weight:bold;"/>
-	
-	<p:growl id="msg2" life="10000" showDetail="true" sticky="true"/>  
-	
-	<p:dataTable id="vmp" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.publications}" type="ordered" selection="#{viewPublications.selectedpub}" selectionMode="single" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,10,15" >
-	
+	<p:growl id="msg2" life="10000" showDetail="true"/>  
+	<p:dataTable id="vmp" var="sfiles" rowKey="#{sfiles.index}" value="#{viewPublications.publications}" type="ordered" selection="#{viewPublications.selectedpub}" selectionMode="single" paginator="true" rows="15" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="5,15,25" >
 		<p:column headerText="Visibility"> 
 			#{sfiles.comp}
 		</p:column>
 		<p:column headerText="Publication"> 
 			#{sfiles.title}<br/>
 			#{sfiles.first5authors}<br/>
-			#{sfiles.pmid}<br/>
+			#{sfiles.pmid}
 		</p:column>
-				  
 	</p:dataTable >
 	<p style="margin-top:15px;">
 		<p:commandButton value="Edit this Publication Record" action="#{viewPublications.moveStep(2)}" update="@form" onclick="setTimeout('document.getElementById(\'' + this.id + '\').disabled=true;', 50);" oncomplete="setTimeout('document.getElementById(\'' + this.id + '\').disabled=false;', 50);"/>
 	</p>
-	
 </h:form> 
-	
 </f:view>
